@@ -12,7 +12,6 @@ window.onload = function () {
             var val = Math.random()<0.5?1:0;
             map[y][x] = val;
         }
-        
     }
     
     function getAroundCount(xd,yd)
@@ -172,13 +171,16 @@ window.onload = function () {
 
         if(event.code == "Space")
         {
-            var i = 0;
-            var interval = setInterval(fun, 250);
+            var i = 1;
+            var j = 1;
+            var interval = setInterval(fun, 15);
             function fun() {
 
-                console.log( i++ );
-                map[camera.position.y + i++][camera.position.x] = 1; // Здесь загвоздка!!!!!!!!
-                if(i == 3) {
+                console.log( i );
+                map[camera.position.y + (++i)][camera.position.x] = 1;
+                map[camera.position.y + j++][camera.position.x] = 0;
+                map[camera.position.y + 16][camera.position.x] = 0;
+                if(i == 16) {
                     clearInterval(interval);
                 }
             }
@@ -187,13 +189,6 @@ window.onload = function () {
 
         // console.log( event );
     }
-
-    window.onkeyup = function(event) {
-        if(event.code == "Space")
-        {
-            clearInterval(interval);
-        }
-    };
 
     function update()
     {
