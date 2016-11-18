@@ -109,7 +109,7 @@ window.onload = function () {
 
             var vert=0;
             var gorz=0;
-    window.onkeypress = function(event)
+    window.onkeydown = function(event)
     {
 
         if(event.code == "KeyA" && map[camera.position.y][camera.position.x-1]==0)
@@ -170,8 +170,30 @@ window.onload = function () {
             map[camera.position.y][camera.position.x+1] = 1;
         }
 
+        if(event.code == "Space")
+        {
+            var i = 0;
+            var interval = setInterval(fun, 250);
+            function fun() {
+
+                console.log( i++ );
+                map[camera.position.y + i++][camera.position.x] = 1; // Здесь загвоздка!!!!!!!!
+                if(i == 3) {
+                    clearInterval(interval);
+                }
+            }
+        }
+
+
         // console.log( event );
     }
+
+    window.onkeyup = function(event) {
+        if(event.code == "Space")
+        {
+            clearInterval(interval);
+        }
+    };
 
     function update()
     {
