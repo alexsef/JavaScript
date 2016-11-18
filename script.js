@@ -114,26 +114,46 @@ window.onload = function () {
         if(event.code == "KeyA" && map[camera.position.y][camera.position.x-1]==0)
         {
             camera.position.x--;
-            gorz--
+            gorz--;
             console.log(camera.position.x + " " + camera.position.y)
+            // направление движения
+            w = false;
+            s = false;
+            d = false;
+            a = true; // движение влево true
         }
         if(event.code == "KeyD" && map[camera.position.y][camera.position.x+1]==0)
         {
             camera.position.x++;
-            gorz++
+            gorz++;
             console.log(camera.position.x + " " + camera.position.y)
+            // направление движения
+            w = false;
+            s = false;
+            d = true; // движение вправо true
+            a = false;
         }
         if(event.code == "KeyW" && map[camera.position.y-1][camera.position.x]==0)
         {
             camera.position.y--;
-            vert--
+            vert--;
             console.log(camera.position.x + " " + camera.position.y)
+            // направление движения
+            w = true; // движение вверх true
+            s = false;
+            d = false;
+            a = false;
         }
         if(event.code == "KeyS" && map[camera.position.y+1][camera.position.x]==0)
         {
             camera.position.y++;
             vert++
             console.log(camera.position.x + " " + camera.position.y)
+            // направление движения
+            w = false;
+            s = true; // движение вниз true
+            d = false;
+            a = false;
         }
 
         if(event.code == "KeyQ")
@@ -169,21 +189,54 @@ window.onload = function () {
             map[camera.position.y][camera.position.x+1] = 1;
         }
 
+
         if(event.code == "Space")
         {
             var i = 1;
             var j = 1;
-            var interval = setInterval(fun, 15);
-            function fun() {
+            if(w)
+                var interval = setInterval(fun_w, 15);
+            if(a)
+                var interval = setInterval(fun_a, 15);
+            if(s)
+                var interval = setInterval(fun_s, 15);
+            if(d)
+                var interval = setInterval(fun_d, 15);
 
-                console.log( i );
-                map[camera.position.y + (++i)][camera.position.x] = 1;
-                map[camera.position.y + j++][camera.position.x] = 0;
-                map[camera.position.y + 16][camera.position.x] = 0;
-                if(i == 16) {
+            function fun_w() {
+                    map[camera.position.y + (--i)][camera.position.x] = 1;
+                    map[camera.position.y + j--][camera.position.x] = 0;
+                    map[camera.position.y - 15][camera.position.x] = 0;
+                if(i == -15) {
                     clearInterval(interval);
                 }
             }
+            function fun_a() {
+                    map[camera.position.y][camera.position.x + (--i)] = 1;
+                    map[camera.position.y][camera.position.x + j--] = 0;
+                    map[camera.position.y][camera.position.x  -15] = 0;
+                if(i == -15) {
+                    clearInterval(interval);
+                }
+            }
+            function fun_s() {
+                    map[camera.position.y + (++i)][camera.position.x] = 1;
+                    map[camera.position.y + j++][camera.position.x] = 0;
+                    map[camera.position.y + 15][camera.position.x] = 0;
+                if(i == 15) {
+                    clearInterval(interval);
+
+                }
+            }
+            function fun_d() {
+                    map[camera.position.y][camera.position.x + (++i)] = 1;
+                    map[camera.position.y][camera.position.x + j++] = 0;
+                    map[camera.position.y][camera.position.x + 15] = 0;
+                if(i == 15) {
+                    clearInterval(interval);
+                }
+            }
+
         }
 
 
