@@ -198,7 +198,7 @@ window.onload = function () {
 
         if(event.code == "Space")
         {
-            var x = camera.position.x;
+            var x = camera.position.x;  // всего-то надо было присвоить этим позициям переменные, чтобы они не менялись при изменении координат
             var y = camera.position.y;
 
             var i = 0;
