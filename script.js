@@ -206,7 +206,7 @@ window.onload = function () {
                 else {
                     clearInterval(interval);
                     map[y + j--][x] = 0;
-                    map[y + j--][x] = 0;
+                    map[y + j--][x] = 0; // если убрать эту строку, то не будет пробивать стену
                 }
             }
             function fun_a() {
@@ -230,7 +230,7 @@ window.onload = function () {
                 else {
                     clearInterval(interval);
                     map[y + j++][x] = 0;
-                    map[y + j++][x] = 0;
+                    map[y + j++][x] = 0; // если убрать эту строку, то не будет пробивать стену
                 }
             }
             function fun_d() {
@@ -242,7 +242,7 @@ window.onload = function () {
                 else {
                     clearInterval(interval);
                     map[y][x + j++] = 0;
-                    map[y][x + j++] = 0;
+                    map[y][x + j++] = 0; // если убрать эту строку, то не будет пробивать стену
                 }
             }
         }
