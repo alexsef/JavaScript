@@ -5,9 +5,9 @@ window.onload = function () {
     var cellSeize = 25;
     var fps = 60;
 
-    var map = new Array(3000);//(canvas.height/cellSeize);
+    var map = new Array(3000);
     for (var y = 0; y < map.length; y++) {
-        map[y] = new Array(3000);//(canvas.width/cellSeize);
+        map[y] = new Array(3000);
         for (var x = 0; x < map[y].length; x++) {
             var val = Math.random()<0.5?1:0;
             map[y][x] = val;
@@ -49,13 +49,10 @@ window.onload = function () {
     smoothMap();
     smoothMap();
     smoothMap();
-    
-    
 
     var hero ={
         position: new coordinate(20,14)
     }
-
 
     function coordinate(x,y)
     {
@@ -68,10 +65,7 @@ window.onload = function () {
         size: new coordinate(parseInt(canvas.width/cellSeize),parseInt(canvas.height/cellSeize))
     };
 
-    
-
-    function draw()
-    {
+    function draw() {
         for(var i = 1495; i < 1505; i++) {
             for(var j = 1495; j < 1505; j++) {
                 map[i][j] = 0;
@@ -86,22 +80,15 @@ window.onload = function () {
                 var mapY = y-camera.position.y+parseInt(camera.size.y/2);
                 if(map[y][x]==1)
                 {
-                    // console.log("FF0000");
-                    context.fillStyle = "#FF0000";  
+                    context.fillStyle = "#FF0000";
                 }
                 else 
                 {
-                    // console.log("00FF00");
                     context.fillStyle = "#00FF00";
                 }
-                // if(y===1500 && x===1500)
-                // {
-                //  context.fillStyle = "#000000";
-                // }
                 context.fillRect((mapX)*cellSeize, (mapY)*cellSeize, cellSeize, cellSeize);
             }
         }
-
         setTimeout(draw,1000/fps);
     }
     draw();
@@ -115,30 +102,28 @@ window.onload = function () {
             w = false;
             s = false;
             d = false;
-            a = true; // движение влево true
+            a = true;
         }
         if(event.code == "KeyA" && map[camera.position.y][camera.position.x-1]==0)
         {
             camera.position.x--;
             gorz--;
-            console.log(camera.position.x + " " + camera.position.y)
-            // направление движения
-            
+            console.log(camera.position.x + " " + camera.position.y);
         }
         if(event.code == "KeyD") {
             w = false;
             s = false;
-            d = true; // движение вправо true
+            d = true;
             a = false;
         }
         if(event.code == "KeyD" && map[camera.position.y][camera.position.x+1]==0)
         {
             camera.position.x++;
             gorz++;
-            console.log(camera.position.x + " " + camera.position.y)
+            console.log(camera.position.x + " " + camera.position.y);
         }
         if(event.code == "KeyW") {
-            w = true; // движение вверх true
+            w = true;
             s = false;
             d = false;
             a = false;
@@ -147,11 +132,11 @@ window.onload = function () {
         {
             camera.position.y--;
             vert--;
-            console.log(camera.position.x + " " + camera.position.y)
+            console.log(camera.position.x + " " + camera.position.y);
         }
         if(event.code == "KeyS") {
             w = false;
-            s = true; // движение вниз true
+            s = true;
             d = false;
             a = false;
         }
@@ -159,7 +144,7 @@ window.onload = function () {
         {
             camera.position.y++;
             vert++;
-            console.log(camera.position.x + " " + camera.position.y)
+            console.log(camera.position.x + " " + camera.position.y);
         }
 
         if(event.code == "KeyQ")
@@ -168,7 +153,6 @@ window.onload = function () {
             map[camera.position.y-1][camera.position.x] = 0;
             map[camera.position.y][camera.position.x+1] = 0;
             map[camera.position.y+1][camera.position.x] = 0;
-            // console.log(camera.position.x + " " + camera.position.y)
         }
 
         if(event.code == "KeyP")
@@ -198,11 +182,12 @@ window.onload = function () {
 
         if(event.code == "Space")
         {
-            var x = camera.position.x;  // всего-то надо было присвоить этим позициям переменные, чтобы они не менялись при изменении координат
+            var x = camera.position.x;
             var y = camera.position.y;
 
             var i = 0;
             var j = 0;
+            var p = 0;
             if(w)
                 var interval = setInterval(fun_w, 15);
             if(a)
@@ -213,35 +198,51 @@ window.onload = function () {
                 var interval = setInterval(fun_d, 15);
 
             function fun_w() {
-                map[y + (--i)][x] = 1;
-                map[y + j--][x] = 0;
-                map[y - 15][x] = 0;
-                if(i == -15) {
+                if(map[y + (--p)][x] == 0) {
+                    map[y + (--i)][x] = 1;
+                    map[y + j--][x] = 0;
+                    map[y - 15][x] = 0;
+                }
+                else {
                     clearInterval(interval);
+                    map[y + j--][x] = 0;
+                    map[y + j--][x] = 0;
                 }
             }
             function fun_a() {
+                if(map[y][x + (--p)] == 0) {
                     map[y][x + (--i)] = 1;
                     map[y][x + j--] = 0;
                     map[y][x  -25] = 0;
-                if(i == -25) {
+                    }
+                else {
                     clearInterval(interval);
+                    map[y][x + j--] = 0;
+                    map[y][x + j--] = 0; // если убрать эту строку, то не будет пробивать стену
                 }
             }
             function fun_s() {
+                if(map[y + (++p)][x] == 0) {
                     map[y + (++i)][x] = 1;
                     map[y + j++][x] = 0;
                     map[y + 15][x] = 0;
-                if(i == 15) {
+                }
+                else {
                     clearInterval(interval);
+                    map[y + j++][x] = 0;
+                    map[y + j++][x] = 0;
                 }
             }
             function fun_d() {
+                if( map[y][x + (++p)] == 0) {
                     map[y][x + (++i)] = 1;
                     map[y][x + j++] = 0;
                     map[y][x + 25] = 0;
-                if(i == 25) {
+                }
+                else {
                     clearInterval(interval);
+                    map[y][x + j++] = 0;
+                    map[y][x + j++] = 0;
                 }
             }
         }
