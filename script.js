@@ -66,8 +66,8 @@ window.onload = function () {
     };
 
     function draw() {
-        for(var i = 1495; i < 1505; i++) {
-            for(var j = 1495; j < 1505; j++) {
+        for(var i = 1499; i < 1501; i++) {
+            for(var j = 1499; j < 1501; j++) {
                 map[i][j] = 0;
             }
         }
@@ -95,8 +95,21 @@ window.onload = function () {
 
             var vert=0;
             var gorz=0;
+
+    var digit1 = true;
+    var digit2 = false;
     window.onkeydown = function(event)
     {
+
+        if(event.code == 'Digit1') {
+            digit1 = true;
+            digit2 = false;
+        }
+        else if (event.code == 'Digit2') {
+            digit2 = true;
+            digit1 = false;
+        }
+        console.log( '1 - ' + digit1 + ' 2 - ' + digit2 );
 
         if(event.code == "KeyA") {
             w = false;
@@ -188,6 +201,7 @@ window.onload = function () {
             var i = 0;
             var j = 0;
             var p = 0;
+
             if(w)
                 var interval = setInterval(fun_w, 15);
             if(a)
@@ -201,48 +215,56 @@ window.onload = function () {
                 if(map[y + (--p)][x] == 0) {
                     map[y + (--i)][x] = 1;
                     map[y + j--][x] = 0;
-                    map[y - 15][x] = 0;
+                    map[y][x] = 0;
                 }
                 else {
                     clearInterval(interval);
-                    map[y + j--][x] = 0;
-                    map[y + j--][x] = 0; // если убрать эту строку, то не будет пробивать стену
+                    if(digit1) {
+                        map[y + j--][x] = 0;
+                        map[y + j--][x] = 0;
+                    }
                 }
             }
             function fun_a() {
                 if(map[y][x + (--p)] == 0) {
                     map[y][x + (--i)] = 1;
                     map[y][x + j--] = 0;
-                    map[y][x  -25] = 0;
+                    map[y][x] = 0;
                     }
                 else {
                     clearInterval(interval);
-                    map[y][x + j--] = 0;
-                    map[y][x + j--] = 0; // если убрать эту строку, то не будет пробивать стену
+                    if(digit1) {
+                        map[y][x + j--] = 0;
+                        map[y][x + j--] = 0; // если убрать эту строку, то не будет пробивать стену
+                    }
                 }
             }
             function fun_s() {
                 if(map[y + (++p)][x] == 0) {
                     map[y + (++i)][x] = 1;
                     map[y + j++][x] = 0;
-                    map[y + 15][x] = 0;
+                    map[y][x] = 0;
                 }
                 else {
                     clearInterval(interval);
-                    map[y + j++][x] = 0;
-                    map[y + j++][x] = 0; // если убрать эту строку, то не будет пробивать стену
+                    if(digit1) {
+                        map[y + j++][x] = 0;
+                        map[y + j++][x] = 0; // если убрать эту строку, то не будет пробивать стену
+                    }
                 }
             }
             function fun_d() {
                 if( map[y][x + (++p)] == 0) {
                     map[y][x + (++i)] = 1;
                     map[y][x + j++] = 0;
-                    map[y][x + 25] = 0;
+                    map[y][x] = 0;
                 }
                 else {
                     clearInterval(interval);
-                    map[y][x + j++] = 0;
-                    map[y][x + j++] = 0; // если убрать эту строку, то не будет пробивать стену
+                    if(digit1) {
+                        map[y][x + j++] = 0;
+                        map[y][x + j++] = 0; // если убрать эту строку, то не будет пробивать стену
+                    }
                 }
             }
         }
