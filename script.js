@@ -1,5 +1,4 @@
 window.onload = function () {
-    // body...
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var cellSeize = 25;
@@ -93,14 +92,13 @@ window.onload = function () {
     }
     draw();
 
-            var vert=0;
-            var gorz=0;
+    var vert=0;
+    var gorz=0;
 
     var digit1 = true;
     var digit2 = false;
     window.onkeydown = function(event)
     {
-
         if(event.code == 'Digit1') {
             digit1 = true;
             digit2 = false;
@@ -109,7 +107,6 @@ window.onload = function () {
             digit2 = true;
             digit1 = false;
         }
-        console.log( '1 - ' + digit1 + ' 2 - ' + digit2 );
 
         if(event.code == "KeyA") {
             w = false;
@@ -117,42 +114,49 @@ window.onload = function () {
             d = false;
             a = true;
         }
+
         if(event.code == "KeyA" && map[camera.position.y][camera.position.x-1]==0)
         {
             camera.position.x--;
             gorz--;
             console.log(camera.position.x + " " + camera.position.y);
         }
+
         if(event.code == "KeyD") {
             w = false;
             s = false;
             d = true;
             a = false;
         }
+
         if(event.code == "KeyD" && map[camera.position.y][camera.position.x+1]==0)
         {
             camera.position.x++;
             gorz++;
             console.log(camera.position.x + " " + camera.position.y);
         }
+
         if(event.code == "KeyW") {
             w = true;
             s = false;
             d = false;
             a = false;
         }
+
         if(event.code == "KeyW" && map[camera.position.y-1][camera.position.x]==0)
         {
             camera.position.y--;
             vert--;
             console.log(camera.position.x + " " + camera.position.y);
         }
+
         if(event.code == "KeyS") {
             w = false;
             s = true;
             d = false;
             a = false;
         }
+
         if(event.code == "KeyS" && map[camera.position.y+1][camera.position.x]==0)
         {
             camera.position.y++;
@@ -170,28 +174,23 @@ window.onload = function () {
 
         if(event.code == "KeyP")
         {
-
             map[camera.position.y-1][camera.position.x] = 1;
         }
 
         if(event.code == "Semicolon")
         {
-
             map[camera.position.y+1][camera.position.x] = 1;
         }
 
         if(event.code == "KeyL")
         {
-
             map[camera.position.y][camera.position.x-1] = 1;
         }
 
         if(event.code == "Quote")
         {
-
             map[camera.position.y][camera.position.x+1] = 1;
         }
-
 
         if(event.code == "Space")
         {
@@ -235,7 +234,7 @@ window.onload = function () {
                     clearInterval(interval);
                     if(digit1) {
                         map[y][x + j--] = 0;
-                        map[y][x + j--] = 0; // если убрать эту строку, то не будет пробивать стену
+                        map[y][x + j--] = 0;
                     }
                 }
             }
@@ -249,7 +248,7 @@ window.onload = function () {
                     clearInterval(interval);
                     if(digit1) {
                         map[y + j++][x] = 0;
-                        map[y + j++][x] = 0; // если убрать эту строку, то не будет пробивать стену
+                        map[y + j++][x] = 0;
                     }
                 }
             }
@@ -263,7 +262,7 @@ window.onload = function () {
                     clearInterval(interval);
                     if(digit1) {
                         map[y][x + j++] = 0;
-                        map[y][x + j++] = 0; // если убрать эту строку, то не будет пробивать стену
+                        map[y][x + j++] = 0;
                     }
                 }
             }
@@ -272,7 +271,6 @@ window.onload = function () {
 
     function update()
     {
-
                 var mapX = hero.position.x
                 var mapY = hero.position.y
                     context.fillStyle = "#0000ff";  
@@ -280,5 +278,4 @@ window.onload = function () {
         setTimeout(update,1000/fps);
     }
     update();
-
 }
